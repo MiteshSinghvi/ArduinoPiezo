@@ -1,53 +1,29 @@
-const int piezoPin = A0; 
-const int threshold = 50;
-int stepCount = 0;          
-bool stepActive = false;
-float voltage = 0;       
-float average = 0;
-float sum = 0;
+⚡ Piezoelectric Energy Harvesting Floor Tiles
+An eco-friendly flooring solution that converts mechanical pressure from human footsteps into usable electrical energy. This project leverages the Piezoelectric Effect to power low-energy IoT devices or charge battery banks in high-traffic areas.
 
-void setup() {
-  Serial.begin(9600); 
-  // pinToMeasure(); // This function was undefined in your snippets, removed for safety
-  Serial.println("Piezo Step Counter Initialized");
-  Serial.println("Waiting for steps...");
-}
+🚀 Overview
+Piezoelectric tiles use internal transducers to create a displacement of charges when compressed. This "waste energy" from walking is captured, rectified from AC to DC, and stored.
 
-void loop() {
-  //Read the sensor constantly
-  int sensorValue = analogRead(piezoPin);
-  if (sensorValue > threshold) {
-    if (!stepActive) {
-      int peakValue = sensorValue;
-      long startTime = millis();
-      
-      while(millis() - startTime < 20) { 
-        int tempVal = analogRead(piezoPin);
-        if (tempVal > peakValue) {
-          peakValue = tempVal;
-        }
-      }
+Key Features
+Renewable Energy: Zero-emission power generation.
 
-      // CALCULATION OF VOLTAGE
-      voltage = peakValue * (5.0 / 1023.0);
-      stepCount++;      
-      // Average Voltage Calculation
-      sum = sum + voltage;
-      average = sum / stepCount;              
-      stepActive = true;
-      Serial.print("Step Detected! | Count: ");
-      Serial.print(stepCount);
-      Serial.print(" | Max Voltage: ");
-      Serial.print(voltage);
-      Serial.print(" V | Avg Voltage: ");
-      Serial.print(average);
-      Serial.println(" V");
-      
-      delay(100); 
-    }
-  } else {
-    if (sensorValue < (threshold - 10)) {
-      stepActive = false;
-    }
-  }
-}
+IoT Integration: Real-time monitoring of energy yield and foot traffic.
+
+Modular Design: Easy to replace individual tiles or scale the grid.
+
+🛠 How It Works
+The core of the tile is a series of piezoelectric elements (usually PZT ceramic or PVDF polymers). When a person steps on the tile, it undergoes mechanical stress, generating a high-voltage, low-current AC signal.
+
+Shutterstock
+Explore
+
+The Power Chain:
+Mechanical Stress: Footfall applies pressure.
+
+Transduction: Piezo elements generate an AC voltage.
+
+Rectification: A bridge rectifier converts the signal to DC.
+
+Regulation: A buck-boost converter stabilizes the voltage (e.g., to 5V).
+
+Storage/Usage: Energy is stored in a supercapacitor or Li-ion battery.
